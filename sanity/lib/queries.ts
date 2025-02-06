@@ -50,7 +50,7 @@ export const PLAYLIST_BY_SLUG_QUERY = defineQuery(`*[_type == "playlist" && slug
       _id,title,slug,
       select[]->{
       _id,title,_createdAt,slug,
-      author->{
+      author[]->{
           _id,name,slug,image,bio
       },
       },
