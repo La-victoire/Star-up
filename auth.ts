@@ -1,11 +1,24 @@
 import NextAuth from "next-auth"
 import GitHub from "next-auth/providers/github"
+import GoogleProvider from "next-auth/providers/google";
 import { AUTHOR_BY_GITHUB_ID_QUERY } from "./sanity/lib/queries"
 import { client } from "./sanity/lib/client";
 import { writeClient } from "./sanity/lib/write-clients";
  
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  providers: [GitHub],
+  providers: [GitHub,GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    }),
+],
+  session: {
+    strategy: "jwt",
+  },
+ authorization: {
+        params: {
+          scope: "openid email profile https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
+        },
+      },
   callbacks: {
     async signIn({
       user: {name, email, image},
@@ -36,6 +49,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         return token;
     },
     async session({session, token}) {
+      console.log("SESSION CALLBACK:", { session, token });
       Object.assign(session, {id: token.id});
       return session;
     }

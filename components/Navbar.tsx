@@ -3,8 +3,10 @@ import { auth, signIn, signOut } from '@/auth'
 import { BadgePlus, LogOut } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
+import SignUp from './SignUp'
+
 
 const Navbar = async () => {
 
@@ -49,11 +51,11 @@ const Navbar = async () => {
             ):(
             <>
             <div>
-            <button onClick={async ()=>{
-              'use server'
-              await signIn('github', {redirectTo: "/"})}}>
-              <span>Log In</span>
-            </button>
+            <Link href={'/SignUp'}>
+              <button>
+                Login
+              </button>
+              </Link>
             
             </div>
   
