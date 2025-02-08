@@ -12,6 +12,10 @@ export const author = defineType({
         type: "number",
 }),
     defineField({
+        name: "sub",
+        type: "number",
+}),
+    defineField({
         name: "name",
         type: "string",
 }),

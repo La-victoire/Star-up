@@ -25,21 +25,27 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   callbacks: {
     async signIn({
        user: {name, email, image},
-       profile: {id,sub,login,bio}
+       profile,
     }) {
-       console.log("SignIn User Data:", {name, email, image, id, sub, login, bio,});
+       if (!profile) {
+           console.log(" PROFILE IS UNDEFINED");
+            return false;}
+        const sub = profile.sub || "";
+        const id = profile.id || sub || "";
+       console.log("SignIn User Data:", {name, email, image, id, sub,}, "PROFILE DATA.", {profile});
        const existinguser = await client.withConfig({useCdn: false}).fetch(AUTHOR_BY_GITHUB_ID_QUERY, {
-         id,});
+         id: id,});
       
          if(!existinguser) {
            await writeClient.create({
              _type: 'author',
-             id: id || sub ,
+             id: id,
+             sub: sub || "",
              name,
-             username:login,
+             username:profile?.login || profile?.given_name ,
              email,
              image,
-             bio: bio || "",
+             bio: profile?.bio || "",
            });
          }
         return true;
