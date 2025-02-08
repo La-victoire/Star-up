@@ -24,30 +24,30 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
   callbacks: {
     async signIn({
-      // user: {name, email, image},
-      // profile: {id, login, bio}
+       user: {name, email, image},
+       profile: {id,sub,login,bio}
     }) {
-      // console.log("SignIn User Data:", {name, email, image, id, login, bio});
-      // const existinguser = await client.withConfig({useCdn: false}).fetch(AUTHOR_BY_GITHUB_ID_QUERY, {
-      //   id,});
+       console.log("SignIn User Data:", {name, email, image, id, sub, login, bio,});
+       const existinguser = await client.withConfig({useCdn: false}).fetch(AUTHOR_BY_GITHUB_ID_QUERY, {
+         id,});
       
-        // if(!existinguser) {
-        //   await writeClient.create({
-        //     _type: 'author',
-        //     id,
-        //     name,
-        //     username:login,
-        //     email,
-        //     image,
-        //     bio: bio || ""
-        //   });
-        // }
+         if(!existinguser) {
+           await writeClient.create({
+             _type: 'author',
+             id: id || sub ,
+             name,
+             username:login,
+             email,
+             image,
+             bio: bio || "",
+           });
+         }
         return true;
       },
     async jwt({token, account, profile}) {
       if (account && profile) {
         const user = await client.withConfig({useCdn: false}).fetch(AUTHOR_BY_GITHUB_ID_QUERY, 
-          {id:profile?.id,});
+          {id:profile?.id || profile?.sub,});
           token.id = user._id;
         }
         return token;
