@@ -17,30 +17,31 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
  authorization: {
         params: {
           scope: "openid email profile https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
-        prompt:"consent",
-      access_type:"offline",
-     response_type: "code",
-    eventType:"admin", },
+          prompt:"consent",
+          access_type:"offline",
+          response_type: "code",
+          eventType:"admin", },
       },
   callbacks: {
     async signIn({
-      user: {name, email, image},
-      profile: {id, login, bio}}) {
-      console.log("SignIn User Data:", {name, email, image, id, login, bio});
-      const existinguser = await client.withConfig({useCdn: false}).fetch(AUTHOR_BY_GITHUB_ID_QUERY, {
-        id,});
+      // user: {name, email, image},
+      // profile: {id, login, bio}
+    }) {
+      // console.log("SignIn User Data:", {name, email, image, id, login, bio});
+      // const existinguser = await client.withConfig({useCdn: false}).fetch(AUTHOR_BY_GITHUB_ID_QUERY, {
+      //   id,});
       
-        if(!existinguser) {
-          await writeClient.create({
-            _type: 'author',
-            id,
-            name,
-            username:login,
-            email,
-            image,
-            bio: bio || ""
-          });
-        }
+        // if(!existinguser) {
+        //   await writeClient.create({
+        //     _type: 'author',
+        //     id,
+        //     name,
+        //     username:login,
+        //     email,
+        //     image,
+        //     bio: bio || ""
+        //   });
+        // }
         return true;
       },
     async jwt({token, account, profile}) {
