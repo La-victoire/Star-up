@@ -56,7 +56,7 @@ const SignUp = () => {
             'use server'
              await signIn('google', {redirectTo: "/"})
          }}
-         className='startup-form_btn bg-opacity-20 backdrop-blur-lg text-[#aeaeae]'>
+         className='startup-form_btn bg-opacity-20 shadow-lg backdrop-blur-lg text-[#aeaeae]'>
           <FcGoogle className="size-6 bg-transparent" />
           Sign Up With Google
          </Button>

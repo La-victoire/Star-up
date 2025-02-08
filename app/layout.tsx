@@ -4,7 +4,7 @@ import localFont from 'next/font/local'
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { Toaster} from "@/components/ui/toaster";
-import SignUpProvider from "@/components/useSignUpStore";
+
 const workSans = localFont({
   src: [{
     path: 'fonts/WorkSans-Black.ttf',
