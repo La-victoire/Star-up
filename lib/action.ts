@@ -11,7 +11,7 @@ export const createPitch = async (state:any , form:FormData) => {
   if (!session) 
     return parseServerActionResponse({ error: "Not signed in.", status: "ERROR"});
 
-  const {title , description, category, link , pitch} = Object.fromEntries(
+  const {title , description, category, link , Pitch} = Object.fromEntries(
     Array.from(form),
   )
   const slug = slugify(title as string, {lower: true, strict: true});
@@ -30,7 +30,7 @@ export const createPitch = async (state:any , form:FormData) => {
         _type: "reference",
         _ref: session?.id,
       },
-      pitch
+      Pitch
     };
 
     const result = await writeClient.create({_type: "startup", ...startup});
