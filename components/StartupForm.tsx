@@ -26,7 +26,7 @@ const StartupForm = () => {
       description: formData.get("description") as string,
       category: formData.get("category") as string,
       link: formData.get("link") as string,
-      pitch: formData.get("pitch") as string,
+      Pitch: formData.get("Pitch") as string,
     }
 
     try {
@@ -129,14 +129,14 @@ const StartupForm = () => {
       </div>
 
       <div data-color-mode="light">
-        <label htmlFor="pitch" className='startup-form_label'>Pitch</label>
+        <label htmlFor="Pitch" className='startup-form_label'>Pitch</label>
         <Textarea 
-          id='pitch'
-          name='pitch'
+          id='Pitch'
+          name='Pitch'
           placeholder='Briefly describe your Idea and what problem it solves'
           className='startup-form_textarea h-[200px] overflow-hidden'
         />
-        {errors.pitch && <p className='startup-form_error'>{errors.pitch}</p>}
+        {errors.pitch && <p className='startup-form_error'>{errors.Pitch}</p>}
       </div>
 
       <Button type='submit' className='startup-form_btn text-white-100'>
